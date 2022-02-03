@@ -11,6 +11,7 @@ import {
 import Movie from "./Movie"
 
 export default function Movies(props) {
+    // console.log (props)
     const movies = props.movies
 
     return (
@@ -35,7 +36,7 @@ export default function Movies(props) {
                     </TouchableOpacity>
                 </View>
             )}
-            keyExtractor={(item) => item.title}
+            keyExtractor={(item) => item._id}
             leftOpenValue={75}
             rightOpenValue={-75}
         >

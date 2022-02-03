@@ -1,10 +1,9 @@
 import { Button, Text, View } from "react-native";
+import Movies from "./Movies";
 
 export default function HomeScreen(props) {
-    console.log(props)
+    // console.log(props)
     return (
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            <Text>Home</Text>
-        </View>
+        <Movies movies={props.movies} remove={props.remove} addFavorite={props.addFavorite}></Movies>
     )
 }

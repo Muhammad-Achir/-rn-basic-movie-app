@@ -15,16 +15,16 @@ export default function App() {
   const [favorite, setFavorite] = useState([])
 
   function getMovies() {
-    fetchApi ('movies')
-    .then (response => {
-      return response.json ()
-    })
-    .then (data => {
-      setMovies (data)
-    })
-    .catch(err => {
-      console.log (err)
-    })
+    fetchApi('movies')
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setMovies(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
   useEffect(() => {
     getMovies()
@@ -42,7 +42,7 @@ export default function App() {
     }))
   }
 
-  
+
   return (
     // <SafeAreaProvider>
     // {/* <NavigationContainer> */}
@@ -75,14 +75,15 @@ export default function App() {
     const insets = useSafeAreaInsets();
     return (
       <NavigationContainer>
-      <Tab.Navigator screenOptions={{
-                tabBarStyle: {
-                    marginTop: insets.top
-                }
-            }}>
-        <Tab.Screen name='Home' component={HomeScreen}></Tab.Screen>
-        <Tab.Screen name='Details' component={DetailsScreen}></Tab.Screen>
-      </Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarStyle: {
+              marginTop: insets.top
+            }
+          }}>
+          <Tab.Screen name='Home' component={HomeScreen}></Tab.Screen>
+          <Tab.Screen name='Details' component={DetailsScreen}></Tab.Screen>
+        </Tab.Navigator>
       </NavigationContainer>
     )
   }

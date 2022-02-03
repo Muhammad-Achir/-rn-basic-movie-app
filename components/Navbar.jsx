@@ -17,6 +17,7 @@ export default function Navbar(props) {
     return (
         <NavigationContainer>
             <Tab.Navigator screenOptions={{
+                swipeEnabled: false,
                 tabBarStyle: {
                     // marginTop: insets.top
                 }

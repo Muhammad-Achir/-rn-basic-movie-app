@@ -9,25 +9,32 @@ import fetchApi from './api';
 import Logo from './components/Logo'
 import Movies from './components/Movies';
 import Navbar from './components/Navbar';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import store from './redux/store'
+import { fetchMovies } from './redux/action';
+
 export default function App() {
-  const [movies, setMovies] = useState([])
+
+  // const [movies, setMovies] = useState([])
 
   const [favorite, setFavorite] = useState([])
+  const dispatch = useDispatch()
+  const movies = useSelector((state) => state.movies)
 
-  function getMovies() {
-    fetchApi('movies')
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        setMovies(data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+  // function getMovies() {
+  //   fetchApi('movies')
+  //     .then(response => {
+  //       return response.json()
+  //     })
+  //     .then(data => {
+  //       setMovies(data)
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
   useEffect(() => {
-    getMovies()
+    dispatch(fetchMovies())
   }, [])
 
   function addFavorite(movie) {
@@ -54,42 +61,41 @@ export default function App() {
     //   {/* <Navbar movies={movies} remove={remove} addFavorite={addFavorite}></Navbar> */}
     // {/* </NavigationContainer> */}
     // </SafeAreaProvider>
-
-    <SafeAreaProvider style={styles.container}>
-      <Logo></Logo>
-      {/* <Navbar></Navbar> */}
-      <Navbar movies={movies} remove={remove} addFavorite={addFavorite}></Navbar>
-      {/* <Movies movies={movies} remove={remove} addFavorite={addFavorite}></Movies> */}
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider style={styles.container}>
+        <Logo></Logo>
+        <Navbar movies={movies} remove={remove} addFavorite={addFavorite}></Navbar>
+      </SafeAreaProvider>
+    </Provider>
   );
 
-  function HomeScreen({ navigation }) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Movies movies={movies} remove={remove} addFavorite={addFavorite}></Movies>
-      </SafeAreaView>
-    )
-  }
+  // function HomeScreen({ navigation }) {
+  //   return (
+  //     <SafeAreaView style={styles.container}>
+  //       <Movies movies={movies} remove={remove} addFavorite={addFavorite}></Movies>
+  //     </SafeAreaView>
+  //   )
+  // }
 
-  function MyTabs() {
-    const insets = useSafeAreaInsets();
-    return (
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={{
-            tabBarStyle: {
-              marginTop: insets.top
-            }
-          }}>
-          <Tab.Screen name='Home' component={HomeScreen}></Tab.Screen>
-          <Tab.Screen name='Details' component={DetailsScreen}></Tab.Screen>
-        </Tab.Navigator>
-      </NavigationContainer>
-    )
-  }
+  // function MyTabs() {
+  //   const insets = useSafeAreaInsets();
+  //   return (
+  //     <NavigationContainer>
+  //       <Tab.Navigator
+  //         screenOptions={{
+  //           tabBarStyle: {
+  //             marginTop: insets.top
+  //           }
+  //         }}>
+  //         <Tab.Screen name='Home' component={HomeScreen}></Tab.Screen>
+  //         <Tab.Screen name='Details' component={DetailsScreen}></Tab.Screen>
+  //       </Tab.Navigator>
+  //     </NavigationContainer>
+  //   )
+  // }
 }
 
-const Tab = createMaterialTopTabNavigator()
+// const Tab = createMaterialTopTabNavigator()
 
 
 
@@ -107,24 +113,24 @@ const styles = StyleSheet.create({
 
 
 
-function DetailsScreen({ navigation }) {
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-        <Button
-          title="Go to Details... again"
-          onPress={() => navigation.push('Details')}
-        />
-        <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-        <Button title="Go back" onPress={() => navigation.goBack()} />
-        <Button
-          title="Go back to first screen in stack"
-          onPress={() => navigation.popToTop()}
-        />
-      </View>
-    </SafeAreaView>
-  );
-}
+// function DetailsScreen({ navigation }) {
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//         <Text>Details Screen</Text>
+//         <Button
+//           title="Go to Details... again"
+//           onPress={() => navigation.push('Details')}
+//         />
+//         <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+//         <Button title="Go back" onPress={() => navigation.goBack()} />
+//         <Button
+//           title="Go back to first screen in stack"
+//           onPress={() => navigation.popToTop()}
+//         />
+//       </View>
+//     </SafeAreaView>
+//   );
+// }
 
 // const Stack = createNativeStackNavigator ()

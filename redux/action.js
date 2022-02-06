@@ -1,5 +1,7 @@
 import Constant from "./constAction";
 
+import fetchApi from "../api";
+
 export function setMovies(payload) {
     return { type: Constant.SET_MOVIES, payload }
 }
